@@ -216,3 +216,17 @@ canvas {
 .contact__info {
   color: blue;
 }
+
+#send {
+  margin: 10px;
+}
+
+#wrapper {
+  margin: 40px auto 0;
+  width: 266px;
+  position: relative;
+}
+
+#txt {
+  color: #eaeaea;
+}
