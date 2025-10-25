@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ZH3 mini app</title>
+    <link rel="icon" href="./src/assets/ethereum.svg">
+    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/animate.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="header__nav">
+                <a href="./index.html" class="logo">Z<span class="green bbh">H3</span></a>
+                <a href="./pages/login.html">
+                    <button id="acc">
+                        Connect MetaMask
+                    </button>
+                </a>
+
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="first">
+            <div class="container box">
+                <h1 class="title" id="title">
+
+                </h1>
+                <img src="./src/assets/eth.png" alt="" class="animate__animated animate__jackInTheBox">
+            </div>
+        </section>
+        <section class="course">
+            <div class="container">
+                <h2>Ethereum Price Chart</h2>
+                <canvas id="ethChart"></canvas>
+
+                <div class="eth__container box">
+                    <div class="controls animate__animated animate__backInLeft">
+                        <div class="period-buttons">
+                            <button data-days="1" class="active">1D</button>
+                            <button data-days="7">1W</button>
+                            <button data-days="30">1M</button>
+                            <button data-days="365">1Y</button>
+                        </div>
+
+                        <select id="currency" style="display: none">
+                            <option value="usd" selected>USD</option>
+                            <option value="eur">EUR</option>
+                            <option value="kgs">KGS</option>
+                        </select>
+                    </div>
+
+                    <div class="controls animate__animated animate__backInLeft">
+                        <input type="number" id="amount" placeholder="wrtie sum">
+                        <button id="convertBtn">Convert</button>
+                    </div>
+                </div>
+
+                <p id="result" class="animate__animated animate__backInLeft"></p>
+            </div>
+        </section>
+        <section class="about">
+            <div class="container box">
+                <img src="./src/assets/us.jpeg" alt="" class="animate__animated animate__fadeInTopLeft">
+                <div class="about__text animate__animated animate__fadeInTopRight">
+                    <h2 class="about__title">
+                        👋 About Us
+                    </h2>
+                    <p class="about__subtitle">
+                        Hi there! We’re two students from Zhayyl Baatyr Lyceum, both 15 years old.
+                        We’re a team that loves technology, learning, and fun projects.
+
+                        💻 We’re beginner developers who believe that even at a young age, you can create great things.
+                        What makes us stand out is our friendship, creativity, and passion for learning new things every day.
+
+                        😎 One of us is strong and handsome, the other is skinny but the heart of the team — together, we’re the perfect balance of strength and brains!
+
+                        Our Motto:
+
+                    <span class="moto">
+                        “Youth is no obstacle when you have the desire to create!”
+                    </span>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="contacts">
+            <div class="container">
+                <h3 class="contact__desk">
+                    Contact us📞
+                </h3>
+                <ul class="contact__list">
+                    <li class="contact__item">
+                        <img src="./src/assets/telephone.png" alt="" class="contact__icon">
+                        <div class="contact__text">
+                            <h3 class="contact__title">Num</h3>
+                            <a target="_blank" href="tel:+996700639901" class="contact__info">+996700639901</a>
+                        </div>
+                    </li>
+                    <li class="contact__item">
+                        <img src="./src/assets/whatsapp.png" alt="" class="contact__icon">
+                        <div class="contact__text">
+                            <h3 class="contact__title">WhatsApp</h3>
+                            <a target="_blank" href="tel:+996709494950" class="contact__info">+996709494950</a>
+                        </div>
+                    </li>
+                    <li class="contact__item">
+                        <img src="./src/assets/telegram.png" alt="" class="contact__icon">
+                        <div class="contact__text">
+                            <h3 class="contact__title">Telegram</h3>
+                            <a href="https://t.me/Kugoo243" class="contact__info">Kugoo243</a>
+                        </div>
+                    </li>
+                    <li class="contact__item">
+                        <img src="./src/assets/gmail.png" alt="" class="contact__icon">
+                        <div class="contact__text">
+                            <h3 class="contact__title">Gmail</h3>
+                            <a target="_blank" href="mailto:nurbolsagynbekov876@gmail.com" class="contact__info">nurbolsagynbekov876@gmail.com</a>
+                        </div>
+                    </li>
+                    <li class="contact__item">
+                        <img src="./src/assets/github-mark.png" alt="" class="contact__icon">
+                        <div class="contact__text">
+                            <h3 class="contact__title">Github</h3>
+                            <a target="_blank" href="https://github.com/Nurbol876" class="contact__info">Nurbol876</a>
+                        </div>
+                    </li>
+                    <li class="contact__item">
+                        <img src="./src/assets/discord.png" alt="" class="contact__icon">
+                        <div class="contact__text">
+                            <h3 class="contact__title">Discord</h3>
+                            <a target="_blank" class="contact__info">Sevara</a>
+                        </div>
+                    </li>
+                    <li class="contact__item">
+                        <img src="./src/assets/reddit.png" alt="" class="contact__icon">
+                        <div class="contact__text">
+                            <h3 class="contact__title">Reddit</h3>
+                            <a href="https://www.reddit.com/user/Few_Macaroon5328/" target="_blank" class="contact__info">Few_Macaroon5328</a>
+                        </div>
+                    </li>
+                    <li class="contact__item">
+                        <img src="./src/assets/instagram.png" alt="" class="contact__icon">
+                        <div class="contact__text">
+                            <h3 class="contact__title">Instagram</h3>
+                            <a href="https://www.instagram.com/nurbolsagynbekov876" target="_blank" class="contact__info">NuSa</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <script src="./src/js/main.js">
+
+    </script>
+    <script src="./src/js/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('ethChart');
+        const currencySelect = document.getElementById('currency');
+        const buttons = document.querySelectorAll('.period-buttons button');
+        const resultEl = document.getElementById('result');
+        const convertBtn = document.getElementById('convertBtn');
+        const amountInput = document.getElementById('amount');
+        let currentDays = 1;
+        let updateTimer = null;
+
+        const ethChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'ETH',
+                    data: [],
+                    borderColor: '#00b894',
+                    tension: 0.3,
+                    fill: true,
+                    backgroundColor: 'rgba(0,184,148,0.1)',
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { grid: { display: false } },
+                    y: { beginAtZero: false, grid: { color: '#eee' } }
+                },
+                plugins: {
+                    legend: { display: true, labels: { color: '#333' } }
+                }
+            }
+        });
+
+        async function fetchData(days, currency) {
+            try {
+                const res = await fetch(`https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=${currency}&days=${days}`);
+                if (!res.ok) throw new Error('Conversation error');
+                const data = await res.json();
+
+                const prices = data.prices.map(p => p[1]);
+                const times = data.prices.map(p => {
+                    const date = new Date(p[0]);
+                    return days <= 1
+                        ? date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
+                        : date.toLocaleDateString();
+                });
+
+                ethChart.data.labels = times;
+                ethChart.data.datasets[0].data = prices;
+                ethChart.data.datasets[0].label = `ETH / ${currency.toUpperCase()}`;
+                ethChart.update();
+
+            } catch (error) {
+                console.error(error);
+                resultEl.innerText = '⚠ Data error, try later.';
+            }
+        }
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentDays = btn.getAttribute('data-days');
+                fetchData(currentDays, currencySelect.value);
+                startAutoUpdate();
+            });
+        });
+
+
+
+        convertBtn.addEventListener('click', async () => {
+            const amount = parseFloat(amountInput.value);
+            if (!amount || amount <= 0) {
+                resultEl.innerText = 'Write sum correctly.';
+                return;
+            }
+
+            try {
+                const currency = currencySelect.value;
+                const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=${currency}`);
+                const data = await res.json();
+                const ethPrice = data.ethereum[currency];
+                const result = (amount / ethPrice).toFixed(4);
+                resultEl.innerText = `${amount} ${currency.toUpperCase()} ≈ ${result} ETH`;
+            } catch (error) {
+                resultEl.innerText = '⚠ Error in conversation.';
+            }
+        });
+
+        fetchData(currentDays, currencySelect.value);
+        startAutoUpdate();
+    </script>
+
+</body>
+</html>

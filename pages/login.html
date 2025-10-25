@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZH3 Mini App</title>
+    <script src="../src/js/web3.min.js"></script>
+    <link rel="icon" href="../src/assets/ethereum.svg">
+    <link rel="stylesheet" href="../src/css/style.css">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <nav class="header__nav">
+            <a href="../index.html" class="logo">Z<span class="green bbh">H3</span></a>
+            <a href="../index.html">
+                <img src="../src/assets/home.svg" alt="🏠">
+            </a>
+
+        </nav>
+    </div>
+</header>
+<div class="content">
+    <h1>💎 Z<span class="green">H3</span> Mini App</h1>
+    <button id="connect">Connect MetaMask</button>
+    <div class="info">
+        <p id="account">Account: —</p>
+        <p id="balance">Balance: —</p>
+    </div>
+
+    <div class="transfer" id="transfer">
+        <h2>🚀 Send Ethereum</h2>
+        <input type="text" id="toAddress" placeholder="Receiver address (0x...)" /><br />
+        <input type="number" id="amount" placeholder="Amount in ETH" step="0.001" /><br />
+        <button id="send">Send ETH</button>
+        <p id="status"></p>
+    </div>
+</div>
+
+<script src="../src/js/login.js"></script>
+
+</body>
+</html>
