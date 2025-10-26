@@ -1,12 +1,11 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://localhost:63342/ZH3/ZH3-master/pages/ai.html -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>ZH3 ai</title>
-    <link rel="icon" href="../src/assets/ethereum.svg">
-    <!-- Chart.js from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="icon" href="http://localhost:63342/ZH3/ZH3-master/src/assets/ethereum.svg">
+    <script src="./ai_files/chart.js.Без названия"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap');
@@ -115,19 +114,19 @@
         <div class="logo">CP</div>
         <div>
             <h1>AI Crypto Predictor — Next 5 Hours</h1>
-            <a href="../index.html" class="lead">Go home</a>
+            <a href="http://localhost:63342/ZH3/ZH3-master/index.html" class="lead">Go home</a>
         </div>
     </header>
 
     <div class="controls">
         <div class="card">
             <label for="coin">Coin ID (CoinGecko)</label>
-            <input id="coin" type="text" value="bitcoin" placeholder="e.g. bitcoin, ethereum, solana" />
+            <input id="coin" type="text" value="bitcoin" placeholder="e.g. bitcoin, ethereum, solana">
         </div>
 
         <div class="card">
             <label for="currency">Currency</label>
-            <input id="currency" type="text" value="usd" placeholder="usd" />
+            <input id="currency" type="text" value="usd" placeholder="usd">
         </div>
 
         <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;">
@@ -149,24 +148,24 @@
     <div class="stats">
         <div class="stat">
             <div class="muted">Latest price</div>
-            <div id="lastPrice" class="value">—</div>
+            <div id="lastPrice" class="value">0.000002 USD</div>
         </div>
         <div class="stat">
             <div class="muted">Prediction after 1 hour</div>
-            <div id="pred1" class="value">—</div>
+            <div id="pred1" class="value">0.000002 USD</div>
         </div>
         <div class="stat">
             <div class="muted">Prediction for next 5 hour</div>
-            <div id="pred5" class="value">—</div>
+            <div id="pred5" class="value">0.000002 USD</div>
         </div>
         <div class="stat">
             <div class="muted">Status</div>
-            <div id="status" class="value muted">Ready</div>
+            <div id="status" class="value muted">Updated: 11:18:23</div>
         </div>
     </div>
 
     <div class="chart-wrap card">
-        <canvas id="chart"></canvas>
+        <canvas id="chart" width="957" height="479" style="display: block; box-sizing: border-box; height: 428px; width: 855px;"></canvas>
         <div id="error" class="muted" style="margin-top:8px"></div>
     </div>
 
@@ -197,7 +196,7 @@
         chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [], // time labels
+                labels: [],
                 datasets: [
                     { label: 'Actual', data: [], borderWidth: 2, tension: 0.2, pointRadius: 0, borderColor: undefined /* default */ },
                     { label: 'Predicted', data: [], borderWidth: 2, tension: 0.2, borderDash: [6,4], pointRadius: 3, borderColor: undefined }
@@ -217,7 +216,6 @@
         });
     }
 
-    // Fetch prices from CoinGecko: market_chart?vs_currency=...&days=1
     async function fetchCoinPrices(coin='bitcoin', vs='usd'){
         const endpoint = `https://api.coingecko.com/api/v3/coins/${encodeURIComponent(coin)}/market_chart?vs_currency=${encodeURIComponent(vs)}&days=1`;
         const res = await fetch(endpoint);
@@ -330,5 +328,5 @@
     startAuto();
 
 </script>
-</body>
-</html>
+
+</body></html>
