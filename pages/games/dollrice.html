@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ZH3 mini app</title>
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <link rel="icon" href="../../src/assets/ethereum.svg">
+</head>
+<style>
+    *{
+        box-sizing: content-box;
+        -webkit-box-sizing: content-box;
+    }
+
+
+</style>
+<body>
+<header class="header">
+    <div class="container">
+        <nav class="header__nav">
+            <a href="../../index.html" class="logo">Z<span class="green bbh">H3</span></a>
+            <a href="../login.html">
+                <button id="acc">
+                    Connect MetaMask
+                </button>
+            </a>
+
+        </nav>
+    </div>
+</header>
+<div class="roll__container">
+    <input id="kef" placeholder="write your sum to book" type="number" step="0.00001" min="0.00001">
+    <p id="result" class="roll__desk"></p>
+    <input id="guess" type="number" placeholder="Guess number that will be smaller than result" step="1" min="1" max="5">
+<!--    <button id="btn_Set">Roll</button>-->
+</div>
+<section class="roll">
+
+    <div id="cube">
+        <div class="front">
+            <span class="dot dot1"></span>
+        </div>
+        <div class="back">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>
+        </div>
+        <div class="right">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>
+            <span class="dot dot3"></span>
+        </div>
+        <div class="left">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>
+            <span class="dot dot3"></span>
+            <span class="dot dot4"></span>
+        </div>
+        <div class="top">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>
+            <span class="dot dot3"></span>
+            <span class="dot dot4"></span>
+            <span class="dot dot5"></span>
+        </div>
+        <div class="bottom">
+            <span class="dot dot1"></span>
+            <span class="dot dot2"></span>
+            <span class="dot dot3"></span>
+            <span class="dot dot4"></span>
+            <span class="dot dot5"></span>
+            <span class="dot dot6"></span>
+        </div>
+    </div>
+</section>
+<footer style="
+  background-color: #222;
+  color: #eee;
+  padding: 40px 20px;
+  font-family: sans-serif;
+">
+    <div style="max-width: 900px; margin: auto; display: flex; justify-content: space-around; flex-wrap: wrap; text-align: center;">
+
+        <!-- Left column -->
+        <div>
+            <h3>Contact Us</h3>
+            <ul style="list-style: none; padding: 0; text-align: left;">
+                <li>📞 +996 700 639 901</li>
+                <li>📱 WhatsApp: +996 709 494 950</li>
+                <li>
+                    ✉️ <a href="mailto:nurbolsagynbekov876@gmail.com" style="color: #eee; text-decoration: underline;">
+                    nurbolsagynbekov876@gmail.com</a>
+                </li>
+                <li><a href="https://github.com/Nurbol876" style="color: #eee; text-decoration: underline;">GitHub</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Find Us</h3>
+            <ul style="list-style: none; padding: 0; text-align: left;">
+                <li><a href="https://nurbol876.github.io/ZH3/" style="color: #eee; text-decoration: underline;">Home</a></li>
+                <li><a href="https://github.com/Nurbol876" style="color: #eee; text-decoration: underline;">Profile</a></li>
+                <li><a href="https://nurbol876.github.io/ZH3/projects" style="color: #eee; text-decoration: underline;">Games</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <p style="margin: 20px 0 0; font-size: 0.9em; color: #888; text-align: center;">
+        &copy; 2025 kiki Team. All rights reserved.
+    </p>
+</footer>
+
+<script src="../../src/js/web3.min.js"></script>
+<script>
+    let cube = document.getElementById("cube");
+    let btnSet = document.getElementById("btn_Set");
+    let min = 1;
+    let max = 24;
+    let val = -1;
+    const result = document.querySelector("#result")
+    const acc = document.querySelector("#acc")
+    let kef = document.getElementById("kef")
+    let guess = document.getElementById("guess")
+    let web3;
+    let account;
+    let balance=-1;
+    let gss;
+    let isK = 0, isG = 0;
+    let won=0;
+    let ngr;
+    const SEPOLIA_PARAMS = {
+        chainId: "0xaa36a7",
+        chainName: "Sepolia Test Network",
+        nativeCurrency: {
+            name: "SepoliaETH",
+            symbol: "ETH",
+            decimals: 18
+        },
+        rpcUrls: ["https://rpc.sepolia.org"],
+        blockExplorerUrls: ["https://sepolia.etherscan.io"]
+    };
+
+    function isMetaMaskInstalled() {
+        return typeof window.ethereum !== "undefined" && window.ethereum.isMetaMask;
+    }
+
+    async function switchToSepolia() {
+        try {
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: SEPOLIA_PARAMS.chainId }]
+            });
+        } catch (switchError) {
+            if (switchError.code === 4902) {
+                await window.ethereum.request({
+                    method: "wallet_addEthereumChain",
+                    params: [SEPOLIA_PARAMS]
+                });
+            } else {
+                console.error("Failed to switch network:", switchError);
+            }
+        }
+    }
+    window.addEventListener("load", async () => {
+        if (isMetaMaskInstalled()) {
+            await switchToSepolia();
+
+            web3 = new Web3(window.ethereum);
+            try {
+                const accounts = await window.ethereum.request({ method: "eth_accounts" });
+                if (accounts.length > 0) {
+                    account = accounts[0];
+                    const balanceWei = await web3.eth.getBalance(account);
+                    const balanceEth = web3.utils.fromWei(balanceWei, "ether");
+                    balance = parseFloat(balanceEth).toFixed(5);
+                    acc.innerText = "Profile";
+                }
+            } catch (err) {
+                console.error("Autoconnect failed:", err);
+                result.innerHTML = "Connect metamask first!"
+                result.style.color = "red";
+                kef.readOnly = true;
+            }
+        }
+    });
+    guess.addEventListener("change", (e) => {
+        e.preventDefault();
+        gss = (e.target.value === "1" ? 1.2 : e.target.value - 0.5);
+        if(isK){
+            result.innerHTML=`You can win ${(ngr*gss).toFixed(6)}`;
+            result.style.color = "#fff";
+            won = (ngr*gss).toFixed(6);
+        }
+        isG = 1;
+    })
+    kef.addEventListener("change", (e) => {
+        e.preventDefault();
+        if(e.target.value > balance) {
+            isK=0;
+            result.innerHTML="Not enough eth";
+            result.style.color = "yellow"
+        }else if(!isG){
+            result.innerHTML = "also need your guess!";
+            result.style.color = "#fff"
+            isK = 1;
+            ngr=e.target.value
+        }else{
+            result.innerHTML=`You can win ${(e.target.value*gss).toFixed(6)}`;
+            result.style.color = "#fff";
+            isK = 1;
+            won = (e.target.value*gss).toFixed(6);
+            ngr = e.target.value;
+        }
+
+    })
+    async function sendStake(amountEth) {
+        const amountWei = web3.utils.toWei(amountEth, "ether");
+        const tx = await web3.eth.sendTransaction({
+            from: account,
+            to: "0xc168cfbb0a8ded7d940d144d21bdbb8067ff2bee",
+            value: amountWei,
+        });
+        console.log("Stake sent:", tx.transactionHash);
+    }
+
+    async function sendPrize(amountEth) {
+        const amountWei = web3.utils.toWei(amountEth, "ether");
+        const tx = await web3.eth.sendTransaction({
+            from: "0xc168cfbb0a8ded7d940d144d21bdbb8067ff2bee",
+            to: account,
+            value: amountWei,
+        });
+        console.log("Prize sent:", tx.transactionHash);
+    }
+    cube.onclick = function () {
+            if(isK && isG) rollRandom();
+    };
+
+    function getRandom(max, min) {
+        return (Math.floor(Math.random() * (max - min)) + min) * 90;
+    }
+
+    cube.onclick = function () {
+        let number = Math.floor(Math.random() * 6);
+        guess.readOnly = true;
+        kef.readOnly = true;
+        cube.removeAttribute("style");
+        cube.removeAttribute("class");
+        cube.classList.add("show-" + number);
+        if(number > gss) {
+            setTimeout( async () => {
+                alert(`You won ${won}eth😃`)
+                await sendPrize(won);
+            }, 4000)
+        }else{
+            setTimeout( async () => {
+                alert(`You lose😥`)
+                await sendStake(ngr);
+            }, 4000)
+        }
+    };
+
+    function rollRandom() {
+        let xRand = getRandom(max, min);
+        let yRand = getRandom(max, min);
+
+        cube.style.webkitTransform =
+            "rotateX(" + xRand + "deg) rotateY(" + yRand + "deg)";
+        cube.style.transform = "rotateX(" + xRand + "deg) rotateY(" + yRand + "deg)";
+        console.log(xRand, yRand)
+    }
+
+</script>
+</body>
+</html>

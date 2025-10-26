@@ -9,6 +9,7 @@
     <link rel="icon" href="./src/assets/ethereum.svg">
     <link rel="stylesheet" href="./src/css/style.css">
     <link rel="stylesheet" href="./src/css/animate.min.css">
+    <link rel="stylesheet" href="./src/css/swiper-bundle.min.css">
 </head>
 <body>
     <header class="header">
@@ -158,6 +159,17 @@
                 <h3 class="games__title">
                     Games🎮
                 </h3>
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <a href="./pages/games/spinthewheel.html" target="_blank" class="swiper-slide">
+                            <div class="swiper-slide games__item"><img src="./src/assets/spin.png" alt=""><h4 class="games__name">Spin the wheel</h4><p class="games__subtitle">Write number and if that number is number that come from spinning the wheel</p></div>
+                        </a>
+                        <a href="./pages/games/dollrice.html" target="_blank" class="swiper-slide">
+                            <div class="swiper-slide games__item"><img src="./src/assets/dice.png" alt=""><h4 class="games__name">Roll Dice</h4><p class="games__subtitle">Input number and roll dice if you get more than you inputed you won!</p></div>
+                        </a>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
             </div>
         </section>
     </main>
@@ -179,12 +191,12 @@
                         ✉️ <a href="mailto:nurbolsagynbekov876@gmail.com" style="color: #eee; text-decoration: underline;">
                         nurbolsagynbekov876@gmail.com</a>
                     </li>
+                    <li><a href="https://github.com/Nurbol876" style="color: #eee; text-decoration: underline;">GitHub</a></li>
                 </ul>
             </div>
             <div>
                 <h3>Find Us</h3>
                 <ul style="list-style: none; padding: 0; text-align: left;">
-                    <li><a href="https://github.com/Nurbol876" style="color: #eee; text-decoration: underline;">GitHub</a></li>
                     <li><a href="https://nurbol876.github.io/ZH3/" style="color: #eee; text-decoration: underline;">Home</a></li>
                     <li><a href="https://github.com/Nurbol876" style="color: #eee; text-decoration: underline;">Profile</a></li>
                     <li><a href="https://nurbol876.github.io/ZH3/projects" style="color: #eee; text-decoration: underline;">Games</a></li>
@@ -201,8 +213,17 @@
 
     </script>
     <script src="./src/js/web3.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./src/js/chart.js"></script>
+    <script src="./src/js/swiper-bundle.min.js"></script>
     <script>
+        let swiper = new Swiper(".mySwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
         const ctx = document.getElementById('ethChart');
         const currencySelect = document.getElementById('currency');
         const buttons = document.querySelectorAll('.period-buttons button');
