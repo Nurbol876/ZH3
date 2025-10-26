@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Classic 3-Reel Slot</title>
+    <style>
+        :root{
+            --bg:#0b1020;
+            --card:#0f1724;
+            --accent:#ffd166;
+            --muted:#9aa6bf;
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:linear-gradient(180deg,#081021 0%, #071422 100%);
+            font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+            color:#fff;
+        }
+        .game{
+            width:360px;
+            padding:20px;
+            border-radius:12px;
+            background:radial-gradient(1200px 300px at 10% 0%, rgba(255,255,255,0.02), transparent),var(--card);
+            box-shadow:0 8px 30px rgba(2,6,23,0.7);
+        }
+        .header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:14px;
+        }
+        .title{font-weight:700;font-size:18px}
+        .credits{font-size:13px;color:var(--muted)}
+
+        .reels{
+            display:flex;
+            gap:12px;
+            justify-content:center;
+            margin:8px 0 18px;
+        }
+        .reel{
+            width:90px;
+            height:120px;
+            border-radius:10px;
+            background:linear-gradient(180deg,#0b1220,#071026);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:48px;
+            box-shadow:inset 0 -6px 18px rgba(0,0,0,0.6);
+            position:relative;
+            overflow:hidden;
+            border:2px solid rgba(255,255,255,0.03);
+        }
+        .reel.win{
+            box-shadow:0 0 18px 4px rgba(255,209,102,0.12),
+            inset 0 -6px 18px rgba(0,0,0,0.6);
+            border-color:rgba(255,209,102,0.35);
+        }
+        .controls{
+            display:flex;
+            gap:10px;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .btn{
+            padding:10px 14px;
+            border-radius:10px;
+            background:linear-gradient(180deg,var(--accent),#ffb84d);
+            color:#111;
+            font-weight:700;
+            border:none;
+            cursor:pointer;
+            box-shadow:0 6px 18px rgba(255,168,45,0.18);
+        }
+        .btn:disabled{opacity:.5;cursor:not-allowed}
+        .small{
+            font-size:13px;
+            padding:8px 10px;
+            border-radius:8px;
+            background:#0c1320;
+            border:1px solid rgba(255,255,255,0.02);
+        }
+        .message{
+            height:20px;
+            margin-top:12px;
+            text-align:center;
+            color:var(--muted);
+            font-size:14px;
+        }
+        .footer{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-top:14px;
+            color:var(--muted);
+            font-size:13px;
+        }
+        @media (max-width:380px){
+            .game{width:320px}
+            .reel{width:80px;height:110px;font-size:44px}
+        }
+    </style>
+</head>
+<body>
+<div class="game" role="application" aria-label="Классический 3-барабанный слот">
+    <div class="header">
+        <div>
+            <div class="title">Classic 3-Reel Slot</div>
+            <div class="credits">Фрукты · 3 барабана · Шанс выигрыша 1%</div>
+        </div>
+        <div id="balanceText" class="credits">Баланс: <strong id="balance">1000</strong> ₸</div>
+    </div>
+
+    <div class="reels">
+        <div class="reel" id="reel0"><span class="symbol">🍒</span></div>
+        <div class="reel" id="reel1"><span class="symbol">🔔</span></div>
+        <div class="reel" id="reel2"><span class="symbol">7️⃣</span></div>
+    </div>
+
+    <div class="controls">
+        <div style="display:flex;gap:8px;align-items:center">
+            <button class="small" id="betDec">-</button>
+            <div style="display:flex;flex-direction:column;align-items:center">
+                <div style="font-weight:700">Ставка</div>
+                <div id="bet" style="font-size:16px">10</div>
+            </div>
+            <button class="small" id="betInc">+</button>
+        </div>
+
+        <button class="btn" id="spinBtn">SPIN</button>
+    </div>
+
+    <div class="message" id="message">Нажми SPIN, чтобы начать</div>
+
+    <div class="footer">
+        <div>Три одинаковых символа — выигрыш x10 (7️⃣ x50)</div>
+        <div style="font-size:12px;color:var(--muted)">🍒 🍋 🔔 🍊 🍉 7️⃣</div>
+    </div>
+</div>
+
+<script>
+    const SYMBOLS = [
+        {s:'🍒',mult:10},
+        {s:'🍋',mult:8},
+        {s:'🔔',mult:12},
+        {s:'🍊',mult:9},
+        {s:'🍉',mult:7},
+        {s:'7️⃣',mult:50}
+    ];
+
+    const reels = [
+        document.getElementById('reel0'),
+        document.getElementById('reel1'),
+        document.getElementById('reel2')
+    ];
+    const spinBtn = document.getElementById('spinBtn');
+    const betEl = document.getElementById('bet');
+    const balanceEl = document.getElementById('balance');
+    const msg = document.getElementById('message');
+    const betDec = document.getElementById('betDec');
+    const betInc = document.getElementById('betInc');
+
+    let balance = 1000;
+    let bet = 10;
+    let spinning = false;
+
+    function updateUI(){
+        balanceEl.textContent = balance;
+        betEl.textContent = bet;
+    }
+
+    betDec.addEventListener('click',()=>{
+        bet = Math.max(1, bet - 5);
+        updateUI();
+    });
+    betInc.addEventListener('click',()=>{
+        bet = Math.min(balance, bet + 5);
+        updateUI();
+    });
+
+    function getRandomSymbol(){
+        return SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+    }
+
+    function spinOnce() {
+        if (spinning) return;
+        if (bet > balance) {
+            msg.textContent = 'Недостаточно средств для ставки.';
+            return;
+        }
+
+        spinning = true;
+        spinBtn.disabled = true;
+        betDec.disabled = true;
+        betInc.disabled = true;
+        msg.textContent = 'Крутится...';
+
+        balance -= bet;
+        updateUI();
+
+        const intervals = [];
+        const final = [];
+
+        const isWin = Math.random() < 0.01;
+
+        for (let i = 0; i < 3; i++) {
+            let reel = reels[i];
+            reel.classList.remove('win');
+            let interval = setInterval(() => {
+                const sym = getRandomSymbol();
+                reel.querySelector('.symbol').textContent = sym.s;
+            }, 60 + i * 10);
+            intervals.push(interval);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                let result;
+                if (isWin) {
+                    // Если выигрыш — делаем все барабаны одинаковыми
+                    result = final[0] || getRandomSymbol();
+                } else {
+                    // Проигрыш — случайные символы
+                    result = getRandomSymbol();
+                }
+                final[i] = result;
+                reel.querySelector('.symbol').textContent = result.s;
+
+                if (i === 2) {
+                    setTimeout(() => finishSpin(final, isWin), 120);
+                }
+            }, 800 + i * 600 + Math.random() * 300);
+        }
+    }
+
+    function finishSpin(final, isWin) {
+        spinning = false;
+        spinBtn.disabled = false;
+        betDec.disabled = false;
+        betInc.disabled = false;
+
+        if (isWin) {
+            const mult = final[0].mult || 10;
+            const win = bet * mult;
+            balance += win;
+            updateUI();
+            msg.textContent = `Congratulation, you won🎉 ${final[0].s} ×${mult} — ${win} ₸`;
+            reels.forEach(r => r.classList.add('win'));
+        } else {
+            msg.textContent = 'You lose 😥.';
+        }
+    }
+
+    spinBtn.addEventListener('click', spinOnce);
+
+    window.addEventListener('keydown', (e)=>{
+        if(e.code === 'Space'){
+            e.preventDefault();
+            spinOnce();
+        }
+    });
+
+    updateUI();
+</script>
+</body>
+</html>

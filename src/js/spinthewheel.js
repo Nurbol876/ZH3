@@ -81,7 +81,7 @@
     result.style.color = "yellow";
     isK = 0;
 }else{
-    let win = e.target.value * 25;
+    let win = e.target.value * 100;
     won = win;
     result.innerHTML = `You can win: <br\> ${win.toFixed(4)}eth`;
     result.style.color = "#fff";
@@ -144,17 +144,17 @@
     ctx.restore();
 }
 
-    function rotate() {
+function rotate() {
     const sector = sectors[getIndex()];
     ctx.canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
     if(angVel) {
-    guess.readOnly  = true;
-    kef.readOnly = true;
-    spinEl.textContent = sector.label;
-}else{
-    guess.readOnly  = false;
-    kef.readOnly = false;
-}
+        guess.readOnly  = true;
+        kef.readOnly = true;
+        spinEl.textContent = sector.label;
+    }else{
+        guess.readOnly  = false;
+        kef.readOnly = false;
+    }
     spinEl.style.background = sector.color;
     spinEl.style.color = sector.text;
 }
@@ -162,11 +162,11 @@
 function frame() {
     if (!angVel && spinButtonClicked) {
 
-    const finalSector = sectors[getIndex()];
-    events.fire("spinEnd", finalSector);
-    spinButtonClicked = false;
-    return;
-}
+        const finalSector = sectors[getIndex()];
+        events.fire("spinEnd", finalSector);
+        spinButtonClicked = false;
+        return;
+    }
     angVel *= friction;
     if (angVel < 0.002) angVel = 0;
     ang += angVel;
@@ -174,7 +174,7 @@ function frame() {
     rotate();
 }
 
-    function engine() {
+function engine() {
     frame();
     requestAnimationFrame(engine);
 }
@@ -183,12 +183,14 @@ function frame() {
     sectors.forEach(drawSector);
     rotate();
     engine();
-        if(isG && isK) {
             spinEl.addEventListener("click", () => {
+                if (!isG || !isK) {
+                    alert("Please fill both of blanks!");
+                    return;
+                }
                 if (!angVel) angVel = rand(0.25, 0.45);
                 spinButtonClicked = true;
             });
-        }
 
 }
 
@@ -213,7 +215,7 @@ function frame() {
     console.log("Prize sent:", tx.transactionHash);
 }
 
-    events.addListener("spinEnd", async (sector) => {
+events.addListener("spinEnd", async (sector) => {
     if (sector.label === gss) {
     alert(`You won ${won} 🤩`);
     await sendPrize(won);
