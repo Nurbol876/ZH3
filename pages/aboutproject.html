@@ -1,66 +1,255 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZH3 mini app</title>
-    <link rel="stylesheet" href="../src/css/style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>About project</title>
+    <link rel="stylesheet" href="../src/assets/ethereum.svg">
     <style>
+        :root{
+            --bg: #f7f8fb;
+            --card: #ffffff;
+            --accent: #00b894;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --max-width: 980px;
+            --radius: 10px;
+        }
 
+        *{box-sizing: border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,#f7f8fb 0%, #eef2f6 100%);
+            color:var(--text);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.5;
+        }
+
+        .container{
+            width: calc(100% - 48px);
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 24px 0;
+        }
+
+        /* Header */
+        .site-header{
+            background: #ffffff;
+            border-bottom: 1px solid #e6e9ee;
+            position: sticky;
+            top:0;
+            z-index: 40;
+        }
+        .site-header .container{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap: 16px;
+        }
+        .site-title{
+            font-size:1.1rem;
+            margin:0;
+            color:var(--text);
+            letter-spacing:0.6px;
+        }
+        .site-nav a{
+            color:var(--muted);
+            text-decoration:none;
+            margin-left:12px;
+            font-size:0.95rem;
+        }
+        .site-nav a:hover{color:var(--accent)}
+
+        /* Hero */
+        .hero{
+            background: transparent;
+            padding-top: 18px;
+            padding-bottom: 8px;
+        }
+        .lead{
+            margin:0 0 8px 0;
+            font-size:1rem;
+            color:var(--text);
+        }
+        .muted{color:var(--muted)}
+        .small{font-size:0.85rem}
+
+        /* Cards */
+        .card{
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 18px 0;
+            box-shadow: 0 6px 20px rgba(31,41,55,0.04);
+        }
+        .card h2{margin-top:0}
+        .card ul{margin:0 0 0 1.1rem;padding:0.15rem 0}
+        .card li{margin:6px 0}
+
+        /* Code / command blocks */
+        pre.cmd{
+            background:#0f1724;
+            color:#f8fafc;
+            padding:12px;
+            border-radius:8px;
+            overflow:auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+            font-size:0.95rem;
+            margin:10px 0;
+        }
+
+        /* Footer */
+        .site-footer{
+            margin-top: 24px;
+            padding: 20px 0;
+            border-top: 1px solid #e6e9ee;
+            background: transparent;
+            color:var(--muted);
+            text-align:center;
+        }
     </style>
 </head>
 <body>
-<section class="intro">
-    <h1 class="project__title">About our project</h1>
-
-    <p class="project__subtitle">
-        We are truly happy to welcome you to our platform — a place built for fun, creativity, and endless exploration.
-        Our goal is simple: to provide you with a space where you can enjoy games, discover new features, and become
-        part of a growing digital community.
-    </p>
-
-    <p class="project__subtitle">
-        Here, every visitor can find something exciting. Whether you want to improve your gaming skills, customize your
-        profile, chat with other users, or just spend your free time with joy — this website opens the door to a world
-        full of entertainment and opportunities!
-    </p>
-
-    <h2 class="project__title">What Can You Do Here?</h2>
-    <ul class="project__list">
-        <li class="project__item">🎮 Play unique and exciting games</li>
-        <li class="project__item">👤 Build and personalize your profile</li>
-        <li class="project__item">💬 Chat, meet new people, and share experiences</li>
-        <li class="project__item">🎁 Earn rewards and achievements</li>
-        <li class="project__item">🚀 Get early access to special content</li>
-    </ul>
-
-    <h2 class="project__title">Why Our Website?</h2>
-    <p class="project__subtitle">
-        Because the internet should be a fun and positive place. You’re not just a visitor — you’re part of the adventure!
-    </p>
-
-    <h2 class="project__title">Join Us!</h2>
-    <p class="project__subtitle">
-        Sign up to unlock the full experience. Track progress, save achievements, play more — and enjoy more! ✨
-    </p>
-
-    <h2 class="project__title">
-        Tools 🛠
-    </h2>
-    <ul class="project__list">
-        <li class="project__item">
-            <p class="project__desk">Github</p>
-            <a target="_blank" href="https://github.com" class="project__link">https://github.com</a>
-        </li>
-        <li class="project__item">👤 Build and personalize your profile</li>
-        <li class="project__item">💬 Chat, meet new people, and share experiences</li>
-        <li class="project__item">🎁 Earn rewards and achievements</li>
-        <li class="project__item">🚀 Get early access to special content</li>
-    </ul>
-    <div class="btn-group">
-        <a href="./" class="btn start">Start Now 🚀</a>
+<header class="site-header">
+    <div class="container">
+        <h1 class="site-title">ZH3 — Mini Web App</h1>
+        <a href="../index.html">↖ Go home</a>
     </div>
-</section>
+</header>
 
+<main class="container">
+    <section class="hero">
+        <p class="lead">
+            ZH3 is a small front-end mini app created by the kiki Team (two students from Zhayyl Baatyr Lyceum). It shows live Ethereum price charts, a simple currency-to-ETH converter, links to a MetaMask login page, a couple of mini-games, and contact information. The app is built with plain HTML/CSS/JavaScript and uses Chart.js, Swiper, web3, and CoinGecko public APIs.
+        </p>
+        <p class="muted">Live demo: <a href="https://nurbol876.github.io/ZH3/" target="_blank" rel="noopener">https://nurbol876.github.io/ZH3/</a></p>
+    </section>
+
+    <section id="features" class="card">
+        <h2>Features</h2>
+        <ul>
+            <li>
+                <strong>Interactive Ethereum price chart</strong> (CoinGecko market chart API)
+                <ul>
+                    <li>Periods: 1D / 1W / 1M / 1Y</li>
+                    <li>Rendered with Chart.js</li>
+                </ul>
+            </li>
+            <li><strong>Simple converter</strong>: convert a fiat amount to ETH (CoinGecko simple price API)</li>
+            <li><strong>MetaMask connect button</strong> (links to login page; web3 available client-side)</li>
+            <li><strong>Games carousel</strong> (Spin the wheel, Roll Dice)</li>
+            <li><strong>Responsive layout</strong> and basic animations (animate.css + Swiper)</li>
+            <li><strong>Contact/social links</strong> and footer</li>
+        </ul>
+    </section>
+
+    <section id="tech" class="card">
+        <h2>Tech &amp; Libraries</h2>
+        <ul>
+            <li>HTML, CSS, JavaScript (vanilla)</li>
+            <li>Chart.js — charts</li>
+            <li>Swiper — games carousel</li>
+            <li>web3.min.js — MetaMask / Ethereum client-side helpers</li>
+            <li>CoinGecko public APIs (no API key required)</li>
+            <li>animate.css for simple animations</li>
+        </ul>
+    </section>
+
+    <section id="structure" class="card">
+        <h2>Repo structure (key items)</h2>
+        <ul>
+            <li><code>index.html</code> — main homepage (chart, converter, games links, contact)</li>
+            <li><code>pages/</code> — subpages (login, games: <code>pages/games/spinthewheel.html</code>, <code>pages/games/dollrice.html</code>)</li>
+            <li><code>src/</code>
+                <ul>
+                    <li><code>src/css/</code> — styles (style.css, animate.min.css, swiper-bundle.min.css)</li>
+                    <li><code>src/js/</code> — scripts (main.js, web3.min.js, chart.js, swiper-bundle.min.js)</li>
+                    <li><code>src/assets/</code> — images &amp; icons</li>
+                </ul>
+            </li>
+            <li><code>prepros.config</code> — optional Prepros project config</li>
+            <li><code>.idea/</code> — IDE settings (can be ignored)</li>
+        </ul>
+    </section>
+
+    <section id="quickstart" class="card">
+        <h2>Quick start (run locally)</h2>
+        <ol>
+            <li>Clone the repository:
+                <pre class="cmd">git clone https://github.com/Nurbol876/ZH3.git
+cd ZH3</pre>
+            </li>
+            <li>Serve with a static server (recommended) or open <code>index.html</code> directly. Example with Python:
+                <pre class="cmd"># Python 3
+python3 -m http.server 8000
+# then open http://localhost:8000/</pre>
+            </li>
+        </ol>
+        <p class="muted">Notes: Chart and converter fetch live data from CoinGecko (no API key). To use MetaMask features, open in a browser with MetaMask installed. If you see fetch/CORS issues opening the file directly, use a local server as shown above.</p>
+    </section>
+
+    <section id="development" class="card">
+        <h2>Development notes</h2>
+        <ul>
+            <li>Main logic for charting and conversion is in JS included on the home page (<code>index.html</code> and <code>src/js/main.js</code>).</li>
+            <li>Swiper is initialized in <code>index.html</code> for the games carousel.</li>
+            <li>MetaMask connect currently links to <code>pages/login.html</code>. To complete Web3 integration: detect provider, request accounts, and handle network/account changes.</li>
+            <li>Animations use animate.css classes included under <code>src/css/</code>.</li>
+        </ul>
+    </section>
+
+    <section id="pages" class="card">
+        <h2>Page references</h2>
+        <ul>
+            <li>Home: <code>index.html</code> (live: <a href="https://nurbol876.github.io/ZH3/" target="_blank" rel="noopener">nurbol876.github.io/ZH3</a>)</li>
+            <li>Login (MetaMask): <code>pages/login.html</code></li>
+            <li>Games: <code>pages/games/spinthewheel.html</code>, <code>pages/games/dollrice.html</code></li>
+        </ul>
+    </section>
+
+    <section id="contact" class="card">
+        <h2>Contact / Authors</h2>
+        <p>kiki Team — two students from Zhayyl Baatyr Lyceum</p>
+        <ul>
+            <li>Email: <a href="mailto:nurbolsagynbekov876@gmail.com">nurbolsagynbekov876@gmail.com</a></li>
+            <li>GitHub: <a href="https://github.com/Nurbol876" target="_blank" rel="noopener">https://github.com/Nurbol876</a></li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>Contributing</h2>
+        <p>Contributions welcome.</p>
+        <ol>
+            <li>Fork the repo</li>
+            <li>Create a branch for your change</li>
+            <li>Open a pull request describing your changes</li>
+        </ol>
+        <p>Please include notes for any JS logic you change.</p>
+    </section>
+
+    <section class="card">
+        <h2>License</h2>
+        <p>No license file is included. If you wish to make the project open source, consider adding a license like MIT (<code>LICENSE</code>).</p>
+    </section>
+
+    <section class="card">
+        <h2>Acknowledgements</h2>
+        <ul>
+            <li>CoinGecko — market data APIs</li>
+            <li>Chart.js and Swiper — UI &amp; charting libraries</li>
+            <li>animate.css — animations</li>
+        </ul>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; 2025 jigitter jardamga Team. All rights reserved.</p>
+        <p class="muted small">This page is a HTML/CSS rendering of the repository README content.</p>
+    </div>
+</footer>
 </body>
 </html>
